@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.tsbuildinfo
+*.db
+*.log
+.DS_Store
+.env
+.env.*
+
+# Aggiunti automaticamente da push-to-github
+.env.local
+.push-to-github

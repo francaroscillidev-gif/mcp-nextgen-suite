@@ -1,0 +1,22 @@
+{
+  "name": "@mcp-nextgen/core",
+  "version": "0.1.0",
+  "description": "Core primitives, security sanitizers and token-budget context pruners for MCP servers",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "author": "Franca Roscilli <francaroscillidev@gmail.com> (https://github.com/francaroscillidev-gif)",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "@types/node": "^22.10.7"
+  }
+}

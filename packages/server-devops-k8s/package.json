@@ -1,0 +1,26 @@
+{
+  "name": "@mcp-nextgen/server-devops-k8s",
+  "version": "0.1.0",
+  "description": "Secure, zero-root local DevOps and Kubernetes diagnostics MCP Server",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "mcp-devops-k8s": "./dist/index.js"
+  },
+  "type": "module",
+  "author": "Franca Roscilli <francaroscillidev@gmail.com> (https://github.com/francaroscillidev-gif)",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc && chmod +x dist/index.js",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@mcp-nextgen/core": "*",
+    "@modelcontextprotocol/sdk": "^1.6.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "@types/node": "^22.10.7"
+  }
+}
