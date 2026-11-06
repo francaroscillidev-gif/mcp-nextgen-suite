@@ -82,12 +82,22 @@ Aggiungi i server al tuo `mcpServers` nel file di configurazione del tuo client:
 - `sqlite_profile_query`: Esegue `EXPLAIN QUERY PLAN`, individua `SCAN TABLE` / `TEMP B-TREE` e raccomanda indici specifici.
 - `postgres_explain_analyze`: Esegue in transazione protetta a sola lettura con `ROLLBACK` forzato `EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON)`.
 - `postgres_inspect_slow_queries`: Analizza `pg_stat_statements` per isolare le query a maggior consumo di tempo.
+- `sql_validate_migration_safety`: Analizzatore statico per migrazioni DDL (rileva lock esclusivi di tabella, indici senza `CONCURRENTLY`, colonne `NOT NULL` senza default e `DROP` rischiosi).
 
 ### DevOps & K8s Copilot (`@mcp-nextgen/server-devops-k8s`)
 - `docker_ps_health`: Elenco sintetico dello stato di salute e porte dei container.
 - `docker_diagnose_container`: Analisi dello stato, exit code, flag `OOMKilled` e ultimi log con deduplicazione algoritmica.
 - `k8s_cluster_health`: Triage cluster: filtra e mostra solo i pod in stato anomalo/degradato.
 - `k8s_diagnose_pod`: Recupero mirato di eventi recenti e log clusterizzati del pod.
+- `k8s_security_audit_manifest`: Security linter per manifest YAML o pod live (rileva root execution UID 0, privilegi elevati, namespace host condivisi e limiti CPU/RAM mancanti).
+
+---
+
+## 🤖 CI / CD Automatizzata
+
+Il repository include una GitHub Actions pipeline ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) che verifica automaticamente:
+- Matrice di compilazione TypeScript su Node.js 18.x, 20.x, 22.x
+- Esecuzione dei test di integrazione per tutti i server MCP.
 
 ---
 

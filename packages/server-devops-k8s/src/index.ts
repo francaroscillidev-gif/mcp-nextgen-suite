@@ -2,6 +2,7 @@
 import { NextGenMcpServer, registerCoreResources, registerDevOpsPrompts } from "@mcp-nextgen/core";
 import { registerDockerTools } from "./docker-tools.js";
 import { registerK8sTools } from "./k8s-tools.js";
+import { registerK8sSecurityAuditTools } from "./k8s-security-tools.js";
 
 async function main() {
   const server = new NextGenMcpServer({
@@ -15,6 +16,7 @@ async function main() {
 
   registerDockerTools(server);
   registerK8sTools(server);
+  registerK8sSecurityAuditTools(server);
 
   registerDevOpsPrompts(server);
   registerCoreResources({

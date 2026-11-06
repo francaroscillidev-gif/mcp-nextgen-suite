@@ -2,6 +2,7 @@
 import { NextGenMcpServer, registerCoreResources, registerDatabasePrompts } from "@mcp-nextgen/core";
 import { registerSqliteTools } from "./sqlite-tools.js";
 import { registerPostgresTools } from "./postgres-tools.js";
+import { registerDbMigrationValidator } from "./migration-validator.js";
 
 async function main() {
   const server = new NextGenMcpServer({
@@ -16,6 +17,7 @@ async function main() {
   // Register database diagnostic tool suites
   registerSqliteTools(server);
   registerPostgresTools(server);
+  registerDbMigrationValidator(server);
 
   // Register Prompts & Live Resources
   registerDatabasePrompts(server);
