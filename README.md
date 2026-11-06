@@ -12,10 +12,10 @@ La maggior parte dei server MCP odierni ha tre problemi critici:
 3. **Mancanza di insight azionabili:** Spesso delegano all'LLM l'onere di comprendere comandi a basso livello anziché fornire tool orientati alla diagnostica.
 
 **MCP NextGen Suite** introduce:
-- **`@mcp-nextgen/core`**: Runtime MCP con sanitizer automatico di secret, pruner adattivo per preservare la context window e **Log Clustering algoritmico** (riduce l'80-90% del rumore di log ripetitivi nei crash).
+- **`@mcp-nextgen/core`**: Runtime MCP con sanitizer automatico di secret, pruner adattivo per preservare la context window, **Log Clustering algoritmico** e **Response Cache deterministica (TTL / LRU)**.
 - **`@mcp-nextgen/cli` (`create-mcp-server`)**: CLI di scaffolding per generare in pochi secondi nuovi server MCP completi di guardrail di sicurezza e token budget.
-- **`@mcp-nextgen/server-db-profiler`**: Profilazione in tempo reale di query lente, piani di esecuzione (EXPLAIN) e suggerimento mirato di indici su SQLite e PostgreSQL.
-- **`@mcp-nextgen/server-devops-k8s`**: Diagnostica zero-root, smart triage di pod in `CrashLoopBackOff`/`OOMKilled` e tailing compatto dei log per Docker e Kubernetes.
+- **`@mcp-nextgen/server-db-profiler`**: Profilazione in tempo reale di query lente, piani di esecuzione (EXPLAIN), suggerimento mirato di indici su SQLite e PostgreSQL, e validatore di sicurezza migrazioni DDL.
+- **`@mcp-nextgen/server-devops-k8s`**: Diagnostica zero-root, smart triage di pod in `CrashLoopBackOff`/`OOMKilled`, auditing `docker-compose.yml`, tailing compatto dei log e security audit per carichi di lavoro K8s.
 
 ---
 
@@ -87,6 +87,7 @@ Aggiungi i server al tuo `mcpServers` nel file di configurazione del tuo client:
 ### DevOps & K8s Copilot (`@mcp-nextgen/server-devops-k8s`)
 - `docker_ps_health`: Elenco sintetico dello stato di salute e porte dei container.
 - `docker_diagnose_container`: Analisi dello stato, exit code, flag `OOMKilled` e ultimi log con deduplicazione algoritmica.
+- `docker_compose_audit`: Security & reliability linter per file `docker-compose.yml` (password in chiaro, porte DB esposte pubblicamente, `privileged: true`, loop di riavvio).
 - `k8s_cluster_health`: Triage cluster: filtra e mostra solo i pod in stato anomalo/degradato.
 - `k8s_diagnose_pod`: Recupero mirato di eventi recenti e log clusterizzati del pod.
 - `k8s_security_audit_manifest`: Security linter per manifest YAML o pod live (rileva root execution UID 0, privilegi elevati, namespace host condivisi e limiti CPU/RAM mancanti).
