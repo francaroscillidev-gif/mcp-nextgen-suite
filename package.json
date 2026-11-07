@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "build": "npm run --workspaces --if-present build",
-    "test": "npm run --workspaces --if-present test",
+    "test": "node --test scripts/test-unit.js",
     "clean": "npm run --workspaces --if-present clean"
   },
   "keywords": [

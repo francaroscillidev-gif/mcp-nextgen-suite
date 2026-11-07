@@ -28,7 +28,13 @@ async function main() {
     getDbStats: async () => "DevOps Copilot active. Engine status: Docker CLI / Kubectl adapter connected."
   });
 
-  await server.startStdio();
+  const port = process.env.MCP_PORT ? parseInt(process.env.MCP_PORT, 10) : process.argv.includes("--sse") ? 3001 : null;
+  if (port) {
+    const { startSseServer } = await import("@mcp-nextgen/core");
+    await startSseServer(server, port);
+  } else {
+    await server.startStdio();
+  }
 }
 
 main().catch((err) => {

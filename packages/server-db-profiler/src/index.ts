@@ -30,8 +30,14 @@ async function main() {
     getDbStats: async () => "DB Profiler active. Connected engines: SQLite, PostgreSQL adapter ready."
   });
 
-  // Connect stdio transport
-  await server.startStdio();
+  // Connect stdio or sse transport depending on CLI flag / env
+  const port = process.env.MCP_PORT ? parseInt(process.env.MCP_PORT, 10) : process.argv.includes("--sse") ? 3000 : null;
+  if (port) {
+    const { startSseServer } = await import("@mcp-nextgen/core");
+    await startSseServer(server, port);
+  } else {
+    await server.startStdio();
+  }
 }
 
 main().catch((err) => {

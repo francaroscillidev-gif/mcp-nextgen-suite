@@ -63,6 +63,26 @@ npm install
 npm run build
 ```
 
+```bash
+# Esecuzione standard con stdio (per Claude Desktop, Cursor, Antigravity)
+node packages/server-db-profiler/dist/index.js
+
+# Esecuzione via rete / SSE (Server-Sent Events) per Agent Gateway remoti
+node packages/server-db-profiler/dist/index.js --sse
+# Porta di default: 3000 (configurabile con MCP_PORT=3000)
+# Endpoint SSE: http://localhost:3000/sse
+# Healthcheck K8s: http://localhost:3000/healthz
+```
+
+### Docker Container Deployment
+```bash
+# Build dell'immagine ottimizzata multi-stage
+docker build -t mcp-nextgen-suite .
+
+# Avvio container con esposizione SSE
+docker run -p 3000:3000 -e MCP_PORT=3000 mcp-nextgen-suite --sse
+```
+
 ### 2. Configurazione nei Client MCP (Claude Desktop, Cursor, Antigravity)
 
 Aggiungi i server al tuo `mcpServers` nel file di configurazione del tuo client:
