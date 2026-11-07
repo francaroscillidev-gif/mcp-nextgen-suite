@@ -1,0 +1,28 @@
+name: Feature Request
+description: Suggest an idea or new MCP tool for the suite
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: We love ideas! Suggest new database engines, observability integrations, or DevOps diagnostics.
+  - type: input
+    id: title
+    attributes:
+      label: Feature / Tool Title
+      placeholder: e.g. Support ClickHouse / Mongo profiler
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      placeholder: Is your feature request related to a problem or token limitation?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed Tool Design & Behavior
+      placeholder: Describe the MCP tool name, arguments, and safe output format
+    validations:
+      required: true

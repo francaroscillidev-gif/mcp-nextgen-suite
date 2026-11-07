@@ -1,0 +1,39 @@
+name: Bug Report
+description: Create a bug report to help us improve MCP NextGen Suite
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting an issue! Please describe the problem clearly.
+  - type: input
+    id: version
+    attributes:
+      label: MCP NextGen Suite Version / Commit
+      placeholder: e.g. v0.1.0 or commit hash
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected Component
+      options:
+        - "@mcp-nextgen/core"
+        - "@mcp-nextgen/server-db-profiler"
+        - "@mcp-nextgen/server-devops-k8s"
+        - "@mcp-nextgen/cli (create-mcp-server)"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce & Observed Behavior
+      placeholder: Describe exact steps, tool arguments, or logs
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      placeholder: What should have happened instead?
+    validations:
+      required: true
