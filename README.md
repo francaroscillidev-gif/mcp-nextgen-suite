@@ -1,6 +1,15 @@
-# MCP NextGen Suite 🚀
+<div align="center">
+  <img src="assets/icon.svg" width="160" height="160" alt="MCP NextGen Suite Icon" />
+  <h1>MCP NextGen Suite</h1>
+  <p><strong>Suite open-source di Server e Strumenti per Model Context Protocol (MCP) ad alte prestazioni, con sicurezza integrata, token budgeting e diagnostica realtime.</strong></p>
 
-> **Suite open-source di Server e Strumenti per Model Context Protocol (MCP)** ad altissime prestazioni, focalizzati su **budgeting intelligente dei token**, **mascheramento proattivo dei secret** e **diagnostica in tempo reale** per Agenti AI.
+  <p>
+    <a href="https://github.com/francaroscillidev-gif/mcp-nextgen-suite/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License" /></a>
+    <a href="https://modelcontextprotocol.io/"><img src="https://img.shields.io/badge/MCP-1.6.0-green.svg" alt="MCP Version" /></a>
+    <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node-18%2B-brightgreen.svg" alt="Node" /></a>
+    <a href="https://github.com/francaroscillidev-gif"><img src="https://img.shields.io/badge/Maintainer-Franca_Roscilli-purple.svg" alt="Maintainer" /></a>
+  </p>
+</div>
 
 ---
 
