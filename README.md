@@ -83,7 +83,18 @@ docker build -t mcp-nextgen-suite .
 docker run -p 3000:3000 -e MCP_PORT=3000 mcp-nextgen-suite --sse
 ```
 
-### 2. Configurazione nei Client MCP (Claude Desktop, Cursor, Antigravity)
+### 2. Kubernetes Enterprise Deployment
+
+Il repository include i manifest pronti all'uso in [`deploy/k8s/`](deploy/k8s/mcp-suite-deployment.yaml) con:
+- Pod deployment a privilegi minimi (`readOnlyRootFilesystem: true`, non-root UID 1000).
+- Probes native K8s di liveness e readiness su `/healthz`.
+- ServiceAccount e ClusterRole a sola lettura (`pods`, `pods/log`, `events`, `deployments`) senza permessi di modifica o cancellazione.
+
+```bash
+kubectl apply -f deploy/k8s/mcp-suite-deployment.yaml
+```
+
+### 3. Configurazione nei Client MCP (Claude Desktop, Cursor, Antigravity)
 
 Aggiungi i server al tuo `mcpServers` nel file di configurazione del tuo client:
 
