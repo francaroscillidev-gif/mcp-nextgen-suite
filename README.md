@@ -12,10 +12,10 @@ La maggior parte dei server MCP odierni ha tre problemi critici:
 3. **Mancanza di insight azionabili:** Spesso delegano all'LLM l'onere di comprendere comandi a basso livello anziché fornire tool orientati alla diagnostica.
 
 **MCP NextGen Suite** introduce:
-- **`@mcp-nextgen/core`**: Runtime MCP con sanitizer automatico di secret, pruner adattivo per preservare la context window, **Log Clustering algoritmico** e **Response Cache deterministica (TTL / LRU)**.
+- **`@mcp-nextgen/core`**: Runtime MCP con sanitizer automatico di secret, pruner adattivo per preservare la context window, **Log Clustering algoritmico**, **Response Cache deterministica (TTL / LRU)**, **Sliding-Window Rate Limiter** e **Prometheus/OpenTelemetry Live Metrics**.
 - **`@mcp-nextgen/cli` (`create-mcp-server`)**: CLI di scaffolding per generare in pochi secondi nuovi server MCP completi di guardrail di sicurezza e token budget.
-- **`@mcp-nextgen/server-db-profiler`**: Profilazione in tempo reale di query lente, piani di esecuzione (EXPLAIN), suggerimento mirato di indici su SQLite e PostgreSQL, e validatore di sicurezza migrazioni DDL.
-- **`@mcp-nextgen/server-devops-k8s`**: Diagnostica zero-root, smart triage di pod in `CrashLoopBackOff`/`OOMKilled`, auditing `docker-compose.yml`, tailing compatto dei log e security audit per carichi di lavoro K8s.
+- **`@mcp-nextgen/server-db-profiler`**: Profilazione in tempo reale di query lente, piani di esecuzione (EXPLAIN), analisi statica preventiva anti-pattern SQL (`sql_estimate_cost_impact`), suggerimento mirato di indici su SQLite e PostgreSQL, profilazione Redis e validatore di sicurezza migrazioni DDL.
+- **`@mcp-nextgen/server-devops-k8s`**: Diagnostica zero-root, smart triage di pod in `CrashLoopBackOff`/`OOMKilled`, auditing `docker-compose.yml`, ispezione layer bloat Docker, tailing compatto dei log e security audit per carichi di lavoro K8s.
 
 ---
 
@@ -82,6 +82,7 @@ Aggiungi i server al tuo `mcpServers` nel file di configurazione del tuo client:
 - `sqlite_profile_query`: Esegue `EXPLAIN QUERY PLAN`, individua `SCAN TABLE` / `TEMP B-TREE` e raccomanda indici specifici.
 - `postgres_explain_analyze`: Esegue in transazione protetta a sola lettura con `ROLLBACK` forzato `EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON)`.
 - `postgres_inspect_slow_queries`: Analizza `pg_stat_statements` per isolare le query a maggior consumo di tempo.
+- `sql_estimate_cost_impact`: Analisi statica preventiva pre-esecuzione (rileva join cartesiani impliciti, predicati `LIKE %term` non sargabili e funzioni su colonne indicizzate).
 - `sql_validate_migration_safety`: Analizzatore statico per migrazioni DDL (rileva lock esclusivi di tabella, indici senza `CONCURRENTLY`, colonne `NOT NULL` senza default e `DROP` rischiosi).
 - `redis_analyze_slowlog_and_memory`: Analisi di comandi bloccanti O(N) (`KEYS *`, `HGETALL`), frammentazione della memoria RSS e policy di eviction OOM su Redis.
 

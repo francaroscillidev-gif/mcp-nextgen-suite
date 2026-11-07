@@ -4,6 +4,7 @@ import { registerSqliteTools } from "./sqlite-tools.js";
 import { registerPostgresTools } from "./postgres-tools.js";
 import { registerDbMigrationValidator } from "./migration-validator.js";
 import { registerRedisProfilerTools } from "./redis-profiler.js";
+import { registerQueryCostEstimator } from "./cost-estimator.js";
 
 async function main() {
   const server = new NextGenMcpServer({
@@ -20,6 +21,7 @@ async function main() {
   registerPostgresTools(server);
   registerDbMigrationValidator(server);
   registerRedisProfilerTools(server);
+  registerQueryCostEstimator(server);
 
   // Register Prompts & Live Resources
   registerDatabasePrompts(server);

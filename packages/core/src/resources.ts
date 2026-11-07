@@ -1,4 +1,5 @@
 import { NextGenMcpServer } from "./server.js";
+import { globalMetrics } from "./metrics.js";
 
 export interface RegisterResourcesOptions {
   server: NextGenMcpServer;
@@ -7,7 +8,7 @@ export interface RegisterResourcesOptions {
 }
 
 /**
- * Register dynamic MCP resources with live telemetry
+ * Register dynamic MCP resources with live telemetry and Prometheus metrics
  */
 export function registerCoreResources(options: RegisterResourcesOptions) {
   const { server, getDbStats } = options;
@@ -17,6 +18,8 @@ export function registerCoreResources(options: RegisterResourcesOptions) {
     "telemetry://system/live-metrics",
     async (uri) => {
       const stats = await getDbStats();
+      const metricsSummary = globalMetrics.getSummary();
+
       const payload = {
         uri: uri.href,
         timestamp: new Date().toISOString(),
@@ -25,6 +28,7 @@ export function registerCoreResources(options: RegisterResourcesOptions) {
           memoryUsageMb: Math.round(process.memoryUsage().heapUsed / 1024 / 1024),
           nodeVersion: process.version
         },
+        mcpMetrics: metricsSummary,
         diagnostics: stats
       };
 
@@ -34,6 +38,24 @@ export function registerCoreResources(options: RegisterResourcesOptions) {
             uri: uri.href,
             mimeType: "application/json",
             text: JSON.stringify(payload, null, 2)
+          }
+        ]
+      };
+    }
+  );
+
+  // Prometheus exposition format resource
+  server.server.resource(
+    "prometheus-metrics",
+    "metrics://prometheus",
+    async (uri) => {
+      const promText = globalMetrics.toPrometheus();
+      return {
+        contents: [
+          {
+            uri: uri.href,
+            mimeType: "text/plain",
+            text: promText
           }
         ]
       };
